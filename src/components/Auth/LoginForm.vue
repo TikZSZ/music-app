@@ -1,5 +1,5 @@
 <template>
-    <div class="text-white text-center font-bold py-4 mb-4" :class="loginAlertStyle" v-if="showLoginAlert" >
+    <div class="text-white text-center font-bold py-4 mb-4 md:px-5 px-0" :class="loginAlertStyle" v-if="showLoginAlert" >
     <p>
       {{loginAlertMsg}}
     </p>                 

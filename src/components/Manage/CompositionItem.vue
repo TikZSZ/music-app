@@ -81,6 +81,7 @@
 import { fireStorage } from "@/includes/firebase/fireStorage";
 import { fireStore, Song, SongDoc } from "@/includes/firebase/fireStore";
 import { defineComponent, PropType } from "@vue/runtime-core";
+import { mapState } from "vuex";
 import CustomFieldWrapper from "../CustomFieldWrapper.vue";
 
 export default defineComponent({
@@ -111,6 +112,9 @@ export default defineComponent({
       show_alert: false
     };
   },
+  computed:{
+    ...mapState(['uid'])
+  },
   methods: {
     toggleForm() {
       this.showForm = !this.showForm;
@@ -121,15 +125,21 @@ export default defineComponent({
       this.in_submission = true;
       this.alert_variant = "bg-blue-500";
       this.alert_msg = "Please wait! Updating song info.";
+
+      if(this.song.modified_name === values.modified_name && this.song.genre===values.genre){
+        this.in_submission = false;
+        this.alert_variant = "bg-red-500";
+        this.alert_msg = "No data was changed";
+        return 
+      }
       try {
-        await fireStore.updateDoc("songs", values, this.song.docId);
+        await fireStore.updateDoc("songs", {...values,uid:this.uid}, this.song.docId);
         
       } catch (err) {
         console.log(err.code);
         this.in_submission = false;
         this.alert_variant = "bg-red-500";
         this.alert_msg = "Something went wrong! Try again later";
-        this.$emit('updateUnsavedFlag',false)
         return;
       }
       this.$emit('updateUnsavedFlag',false)
@@ -153,7 +163,7 @@ export default defineComponent({
       return !!index;
     },
     removeSong:(index:number)=>!!index,
-    updateUnsavedFlag:(value:boolean)=>!!value
+    updateUnsavedFlag:(value:boolean)=>true
   }
 });
 </script>

@@ -27,15 +27,7 @@
               </a>
             </li>
           </template>
-          
         </ul>
-      </div>
-      <!-- User Name -->
-      <div v-if="userName" class="mx-auto mr-20 "  >
-      <!-- style="color: #F59E0B;" -->
-        <p class="absolute text-white "  :class="{'-my-6':isMobile,'-my-2.5':!isMobile}" >
-          Welcome {{userName}}
-        </p>
       </div>
     </nav>
   </header>
@@ -60,7 +52,7 @@ export default defineComponent({
     }
   },
   computed:{
-    ...mapState(['isLoggedIn','userName','isMobile'])
+    ...mapState(['isLoggedIn','isMobile'])
   }
 })
 </script>

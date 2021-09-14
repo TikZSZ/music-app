@@ -58,6 +58,8 @@ export default createStore<State>({
       const doc = await fireStore.getDoc("users");
       // dispatch after login
       dispatch("afterLogin", { userName: user.displayName, uid: user.uid });
+      commit('toggleAuthModal')
+
     },
 
     async login({ commit, dispatch }, payload: { email: string; password: string }) {
@@ -68,6 +70,7 @@ export default createStore<State>({
       console.log(userCredentials, "signed in");
       const {user} = userCredentials
       dispatch("afterLogin", { userName: user.displayName, uid: user.uid });
+      commit('toggleAuthModal')
     },
 
     async logOut({ commit }) {

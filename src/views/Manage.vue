@@ -41,7 +41,6 @@
         </div>
       </div>
       </div>
-      
     </div>
   </section>
 </template>
@@ -84,19 +83,6 @@ export default defineComponent({
       this.unsavedFlag = value
     }
   },
-  // async beforeRouteEnter(to, from, next) {
-  //   const { docs } = await fireStore.getDocs<SongDoc>(
-  //     "songs",
-  //     where("uid", "==", fireAuth.currentUser().uid)
-  //   );
-  //   const songs = docs.map(document => {
-  //     return { ...document.data(), docId: document.id };
-  //   });
-  //   console.log(songs);
-  //   next(vue => {
-  //     (vue as any).songs = songs;
-  //   });
-  // },
   async created(){
     const { docs } = await fireStore.getDocs<SongDoc>(
       "songs",
@@ -116,6 +102,19 @@ export default defineComponent({
       next(leave)
     }
     next();
-  }
+  },
+  // async beforeRouteEnter(to, from, next) {
+  //   const { docs } = await fireStore.getDocs<SongDoc>(
+  //     "songs",
+  //     where("uid", "==", fireAuth.currentUser().uid)
+  //   );
+  //   const songs = docs.map(document => {
+  //     return { ...document.data(), docId: document.id };
+  //   });
+  //   console.log(songs);
+  //   next(vue => {
+  //     (vue as any).songs = songs;
+  //   });
+  // },
 });
 </script>

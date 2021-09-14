@@ -1,7 +1,7 @@
 <template>
   <!-- Loader -->
   <div
-    class="text-white text-center font-bold py-4 mb-4"
+    class="text-white text-center font-bold py-4 mb-4 md:px-5 px-0"
     :class="regAlertStyle"
     v-if="showRegAlert"
   >

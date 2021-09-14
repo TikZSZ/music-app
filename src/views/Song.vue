@@ -10,7 +10,7 @@
         <!-- Play/Pause Button -->
         <button
           type="button"
-          class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full
+          class="z-50 ml-5 md:ml-0 h-20 w-24 md:h-24 md:w-24  text-3xl bg-white text-black rounded-full
         focus:outline-none"
           @click.prevent="newSong(song)"
         >
@@ -18,7 +18,7 @@
         </button>
         <div class="z-50 text-left ml-8">
           <!-- Song Info -->
-          <div class="text-3xl font-bold">{{ song.modified_name }}</div>
+          <div class="md:text-3xl text-xl font-bold">{{ song.modified_name }}</div>
           <div>{{ song.genre }}</div>
         </div>
       </div>
