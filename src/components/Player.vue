@@ -16,7 +16,7 @@
         <div class="absolute left-0 right-0 text-lg text-center mx-auto  top-0 ">
           <p class="song-title">{{currentSong?.modified_name}} by {{currentSong?.display_name}}</p>
         </div>
-        <span class="block w-full  h-2 rounded -ml-4 mt-8  md:mt-6 bg-gray-200 relative cursor-pointer">
+        <span class="block w-full  h-2 rounded -ml-4 mt-11  md:mt-6 bg-gray-200 relative cursor-pointer">
           <span class="absolute top-neg-8 text-gray-800	text-lg" style="left: 50%;">
             <i class="fas fa-circle"></i>
           </span>
@@ -25,7 +25,7 @@
         </span>
       </div>
       <!-- Duration -->
-      <div class="float-left w-7 h-7 leading-3 text-gray-400 text-lg  md:ml-1 md:mt-7  mt-11 ml-5">
+      <div class="float-left w-7 h-7 leading-3 text-gray-400 text-lg  md:ml-1 md:mt-7  mt-11 ml-7">
         <span class="player-duration">03:06</span>
       </div>
     </div>
