@@ -1,5 +1,4 @@
-import {} from "vee-validate"
-
+import {DocumentData,Firestore,CollectionReference} from "@firebase/firestore/dist/lite"
 declare module 'vue' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -18,6 +17,9 @@ declare module 'vue-router' {
     requiresAuth?: boolean
     // must be declared by every route
   }
+}
+declare module '@firebase/firestore/dist/lite'{
+  export declare function collection<T= DocumentData>(firestore: Firestore, path: string, ...pathSegments: string[]): CollectionReference<T>;
 }
 
 export {}
