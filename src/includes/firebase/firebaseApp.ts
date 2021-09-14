@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import {config} from "../../../env"
 let firebaseConfig = {};
 
 if(process.env.VUE_APP_VERCEL_ENV === "production"){
@@ -13,7 +12,9 @@ if(process.env.VUE_APP_VERCEL_ENV === "production"){
     measurementId: process.env.MEASUREMENT_ID
   }
 }else{
-  firebaseConfig = config
+  import('../../../env').then(({config})=>{
+    firebaseConfig = config
+  })
 }
 
 // Initialize Firebase
