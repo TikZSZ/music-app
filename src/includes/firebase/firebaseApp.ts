@@ -4,6 +4,14 @@ import { initializeApp } from "firebase/app";
 // import {config} from "env"
 // const firebaseConfig = config
 //prod
+console.log ( process.env.API_KEY,
+  process.env.AUTH_DOMAIN,
+  process.env.PROJECT_ID,
+  process.env.STORAGE_BUCKET,
+  process.env.MESSAGING_SENDER_ID,
+  process.env.APP_ID,
+  process.env.MEASUREMENT_ID
+)
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
