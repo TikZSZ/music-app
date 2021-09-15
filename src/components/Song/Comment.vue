@@ -19,7 +19,7 @@
   
 </template>
 <script lang="ts">import { fireAuth } from "@/includes/firebase/fireAuth";
-import { Comment, fireStore } from "@/includes/firebase/fireStore";
+import { Comment, fireStore, increment } from "@/includes/firebase/fireStore";
 import { defineComponent, PropType } from "vue";
 import { mapState } from "vuex";
 
@@ -50,6 +50,7 @@ export default defineComponent({
       this.delete_in_submission = true
       try {
         await fireStore.deleteDoc("comments",this.comment.commentId)
+        fireStore.updateDoc("songs",{comment_count:increment(1)},this.comment!.songId!)
         this.$emit('removeComment',this.index)
       } catch (err) {
         console.log(err.code)

@@ -190,6 +190,7 @@ export default defineComponent({
     },
     removeComment(index: number) {
       this.comments.splice(index, 1);
+      this.song!.comment_count -= 1
     },
     handle_success_style() {
       (this.comment_alert_variant = "bg-green-500"),
