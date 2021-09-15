@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 // import {config} from "env"
 // const firebaseConfig = config
 //prod
-console.log ( process.env.VUE_APP_API_KEY,
+console.log ( process.env,
   process.env.AUTH_DOMAIN,
   process.env.PROJECT_ID,
   process.env.STORAGE_BUCKET,
