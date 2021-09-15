@@ -4,6 +4,7 @@ import { fireAuth, updateProfile } from "@/includes/firebase/fireAuth";
 import {Howl} from "howler"
 import { createStore } from "vuex";
 import { State } from "./State";
+import helper from "@/includes/helper";
 
 export default createStore<State>({
   state: {
@@ -13,13 +14,19 @@ export default createStore<State>({
     userName: null,
     uid: null,
     currentSong:null,
-    sound:null
+    sound:null,
+    duration:'00:00',
+    seek:'00:00',
+    progress:'0%'
+
+
   },
   getters:{
     isPlaying:(state)=> {
       if(state.sound?.playing){
         return state.sound.playing()
       }
+      return false
     }
   },
   mutations: {
@@ -30,11 +37,15 @@ export default createStore<State>({
     setUid: (state, uid: string) => (state.uid = uid),
     newSong:(state, song: Song) => {
       state.currentSong = song
-      state.sound?.unload()
       state.sound = new Howl({
         src:[song.url],
         html5:true
       })
+    },
+    updatePosition:(state)=>{
+      state.seek = helper.formatTime(state.sound!.seek())
+      state.duration = helper.formatTime(state.sound!.duration())
+      state.progress = `${(state.sound!.seek()/state.sound!.duration())*100}%`
     }
   },
   actions: {
@@ -103,9 +114,54 @@ export default createStore<State>({
       commit("setUid", uid);
     },
 
-    newSong({ commit,state }, payload: Song) {
+    newSong({ commit,state,dispatch }, payload: Song) {
+      if(state.sound instanceof Howl){
+        state.sound.unload();  
+      }
+
       commit("newSong", payload);
+
       state.sound?.play()
+
+      state.sound?.on('play', ()=>{
+        requestAnimationFrame(()=>{
+          dispatch('progress')
+        })
+      })
+    },
+
+    togglePlay({state}){
+      if(!state.sound?.playing){
+        return 
+      }
+      if(state.sound.playing()){
+        state.sound.pause()
+      }else{
+        state.sound.play()
+      }
+    },
+
+    progress({dispatch,commit,state}){
+      commit('updatePosition')
+      if(state.sound?.playing()){
+        requestAnimationFrame(()=>{
+          dispatch('progress')
+        })
+      }
+    },
+
+    updateSeek({state,dispatch},payload:any){
+      if(!state.sound?.playing){
+        return;
+      };
+      const {x,width} = payload.currentTarget.getBoundingClientRect()
+      const clickX = payload.clientX-x;
+      const percentage = clickX/width
+      const seconds = state.sound.duration()*percentage
+      state.sound.seek(seconds)
+      state.sound.once('seek',()=>{
+        dispatch('progress')
+      })
     }
   }
 });

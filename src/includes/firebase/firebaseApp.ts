@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 
 // dev
-// import {config} from "env"
+// import {config} from "../../../env"
 // const firebaseConfig = config
+
+
 //prod
-
-
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_API_KEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,

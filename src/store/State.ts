@@ -8,5 +8,8 @@ export interface State{
   userName:string|null,
   uid:string|null,
   currentSong:Song|null,
-  sound:null|Howl
+  sound:null|Howl,
+  duration:string,
+  seek:string,
+  progress:string
 }

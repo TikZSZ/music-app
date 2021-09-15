@@ -9,9 +9,9 @@
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
-           <li>
+           <!-- <li>
               <router-link to="/about" class="px-2 text-white" href="#">About</router-link>
-            </li>
+            </li> -->
           <li v-if="!isLoggedIn">
             <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">
               Login / Register
