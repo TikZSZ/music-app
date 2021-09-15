@@ -6,7 +6,9 @@ import validation from './includes/validation';
 import {fireAuth} from "./includes/firebase/fireAuth"
 import './assets/tailwind.css';
 import "./assets/main.css"
-
+import ProgressBar from "@/includes/progress-bar"
+import 'nprogress/nprogress.css'
+ProgressBar(router)
 let app:VueApp<Element>|undefined = undefined
 
 fireAuth.isUserLoggedIn(()=>{

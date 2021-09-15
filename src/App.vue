@@ -2,12 +2,13 @@
   <!-- Header -->
   <AppHeader />
 
-  <!-- Introduction -->
-  <router-view v-slot="{Component}">
+  <!-- main component-->
+  <!-- <router-view v-slot="{Component,route} ">
     <transition name="fade" mode="out-in">
-      <component :is="Component"></component>
+      <component :is="Component" :key="route.path"/>
     </transition>
-  </router-view>
+  </router-view> -->
+  <router-view > </router-view>
 
   <!-- Player -->
   <Player />
@@ -48,7 +49,7 @@ export default defineComponent({
 
 
 <style>
-.fade-eneter-from{
+.fade-enter-from{
   opacity: 0;
 }
 

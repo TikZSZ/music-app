@@ -14,7 +14,7 @@
       <!-- Scrub -->
       <div class="float-left w-22 h-7 leading-3 ml-7 mt-2 player-scrub">
         <div class="absolute left-0 right-0 text-lg text-center mx-auto  top-0 ">
-          <p class="song-title">{{currentSong?.modified_name}} by {{currentSong?.display_name}}</p>
+          <p class="song-title">{{currentSong?.modified_name}} (uploaded by {{currentSong?.display_name}})</p>
         </div>
         <!-- Scrub Container -->
         <span class="block w-full   h-2 rounded -ml-4 mt-10 md:mt-6 bg-gray-200 relative cursor-pointer"
