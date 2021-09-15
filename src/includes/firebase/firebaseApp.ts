@@ -12,6 +12,7 @@ console.log ( process.env,
   process.env.APP_ID,
   process.env.MEASUREMENT_ID
 )
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
