@@ -87,7 +87,8 @@ import {
   Song,
   SongDoc,
   where,
-increment
+increment,
+Timestamp
 } from "@/includes/firebase/fireStore";
 import { defineComponent } from "vue";
 import CustomFieldWrapper from "@/components/CustomFieldWrapper.vue";
@@ -122,9 +123,9 @@ export default defineComponent({
     sortedComments(): Comment[] {
       return this.comments.slice().sort((a, b) => {
         if (this.sort === "1") {
-          return new Date(b.datePosted).getSeconds() - new Date(a.datePosted).getSeconds();
-        }
-        return new Date(a.datePosted).getSeconds() - new Date(b.datePosted).getSeconds();
+          return b.datePosted.nanoseconds - a.datePosted.nanoseconds;
+        } 
+        return a.datePosted.nanoseconds - b.datePosted.nanoseconds; 
       });
     }
   },
@@ -158,6 +159,8 @@ export default defineComponent({
       const comments = commentsSnapshot.docs.map(commentDoc => {
         return { ...commentDoc.data(), commentId: commentDoc.id };
       });
+      console.log(comments[0].datePosted.seconds);
+      
       this.comments = comments;
     },
     async addComment(values: { comment: string }, ctx: FormActions<{ comment: string }>) {
@@ -171,7 +174,7 @@ export default defineComponent({
         const commentData = {
           songId: this.song!.docId,
           comment: values.comment,
-          datePosted: new Date().toString(),
+          datePosted: Timestamp.now(),
           name: displayName!,
           uid: uid
         };
@@ -180,7 +183,7 @@ export default defineComponent({
         this.comments.unshift({ ...commentData, commentId: commentRef.id });
         this.song!.comment_count+=1
         ctx.resetForm();
-      } catch (err) {
+      } catch (err:any) {
         console.log(err.code);
         this.handle_error_style();
         this.comment_alert_msg = "Oops something went wrong!";
@@ -188,8 +191,12 @@ export default defineComponent({
       }
       this.handle_success_style();
     },
-    removeComment(index: number) {
-      this.comments.splice(index, 1);
+    removeComment(commentId: string) {
+      this.comments.map((comment,index)=>{
+        if(comment.commentId === commentId) {
+          this.comments.splice(index,1)
+        }
+      })  
       this.song!.comment_count -= 1
     },
     handle_success_style() {

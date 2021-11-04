@@ -25,10 +25,13 @@
     <!-- Main Content -->
     <section class="container mx-auto">
       <div v-if="songs" class="bg-white rounded border border-gray-200 relative flex flex-col">
-        <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
+        <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200" 
+          v-icon-secondary="{icon:'headphones-alt',right:true}"
+        > 
+          <!-- v-icon.right.yellow="'headphones-alt'" -->
           <span class="card-title ">Songs</span>
           <!-- Icon -->
-          <i class="fa fa-headphones-alt float-right text-green-400 text-xl"></i>
+          <!-- <i class="fa fa-headphones-alt float-right text-green-400 text-xl"></i> -->
         </div>
         <!-- Playlist -->
         <ol id="playlist">
@@ -70,6 +73,7 @@ import {
 import { defineComponent } from "vue";
 import SongItem from "@/components/Home/SongItem.vue";
 import { SelfBuildingSquareSpinner } from "epic-spinners";
+import { iconSecondary } from "@/directives/icon";
 
 // @ is an alias to /src
 
@@ -78,6 +82,9 @@ export default defineComponent({
   components: {
     SongItem,
     SelfBuildingSquareSpinner: SelfBuildingSquareSpinner
+  },
+  directives:{
+    'icon-secondary':iconSecondary
   },
   data() {
     return {

@@ -3,7 +3,7 @@
   <main>
     <div class="mb-5">
       <div class="font-bold">{{ comment.name }}</div>
-      <time>{{ new Date(comment.datePosted).toLocaleString() }}</time>
+      <time>{{ new Date(comment.datePosted.seconds*1000).toLocaleString() }}</time>
     </div>
     <p>
       {{ comment.comment }}
@@ -21,8 +21,7 @@
   </main>
 </template>
 <script lang="ts">
-import { fireAuth } from "@/includes/firebase/fireAuth";
-import { Comment, fireStore, increment } from "@/includes/firebase/fireStore";
+import { Comment, fireStore, increment, } from "@/includes/firebase/fireStore";
 import { defineComponent, PropType } from "vue";
 import { mapState } from "vuex";
 
@@ -46,16 +45,16 @@ export default defineComponent({
     ...mapState(["isLoggedIn", "uid"])
   },
   emits: {
-    removeComment: (index: number) => !!index
+    removeComment: (commentId: string) => !!commentId
   },
   methods: {
     async deleteComment() {
       this.delete_in_submission = true;
       try {
         await fireStore.deleteDoc("comments", this.comment.commentId);
-        fireStore.updateDoc("songs", { comment_count: increment(1) }, this.comment!.songId!);
-        this.$emit("removeComment", this.index);
-      } catch (err) {
+        await fireStore.updateDoc("songs", { comment_count: increment(-1) }, this.comment!.songId!);
+        this.$emit("removeComment", this.comment.commentId);
+      } catch (err:any) {
         console.log(err.code);
       }
       this.delete_in_submission = false;

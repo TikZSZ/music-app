@@ -22,7 +22,8 @@ import {
   startAt,
   orderBy,
   QueryDocumentSnapshot,
-  increment
+  increment,
+  Timestamp,
 } from "firebase/firestore/lite";
 import { firebaseApp } from "./firebaseApp";
 
@@ -46,7 +47,7 @@ export interface SongDoc{
 export interface CommentDoc{
   songId:string,
   comment:string,
-  datePosted:string,
+  datePosted:any,
   name:string,
   uid:string
 }
@@ -122,4 +123,4 @@ class FireStore {
 
 export const fireStore = new FireStore(firebaseApp)
 
-export {DocumentReference,where,limit,startAfter,startAt,DocumentSnapshot,QuerySnapshot,orderBy,QueryDocumentSnapshot,increment}
+export {DocumentReference,where,limit,startAfter,startAt,DocumentSnapshot,QuerySnapshot,orderBy,QueryDocumentSnapshot,increment,Timestamp}
