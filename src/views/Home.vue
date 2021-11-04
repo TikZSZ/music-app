@@ -92,7 +92,7 @@ export default defineComponent({
       lastVisible: null as QueryDocumentSnapshot<SongDoc> | null,
       pendingRequest: false,
       isEnd: false,
-      limit: 5
+      limit: 10
     };
   },
   async mounted() {
